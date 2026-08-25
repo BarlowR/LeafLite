@@ -17,17 +17,17 @@
 // flushed every 10s to bound loss if power dies mid-flight.
 class RawLogger {
  public:
-  // Starts a new log. Named alongside the IGC file when GPS has a date,
-  // else a sequential /raw-NNN.csv so bench sessions work without a fix.
+  // Starts a new log in /raw. Named by the GPS timestamp (UTC) at start when
+  // there is a fix, else a sequential nofix-NNN.csv so bench sessions work.
   bool start(const GpsFix& fix) {
     if (active_) return true;
     char path[48];
     if (fix.valid && fix.year >= 2020) {
-      snprintf(path, sizeof(path), "/%04u-%02u-%02u-LFL-%02u%02u%02u.raw.csv",
+      snprintf(path, sizeof(path), "/raw/%04u-%02u-%02u-%02u%02u%02u.csv",
                fix.year, fix.mon, fix.day, fix.hh, fix.mm, fix.ss);
     } else {
       for (int i = 0; i < 1000; i++) {
-        snprintf(path, sizeof(path), "/raw-%03d.csv", i);
+        snprintf(path, sizeof(path), "/raw/nofix-%03d.csv", i);
         if (!SD_MMC.exists(path)) break;
       }
     }

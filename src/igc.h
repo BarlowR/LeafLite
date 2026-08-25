@@ -17,15 +17,19 @@ class IgcLogger {
   bool mountSd() {
     pinMode(PIN_SD_DETECT, INPUT_PULLUP);
     if (!SD_MMC.setPins(PIN_SDIO_CLK, PIN_SDIO_CMD, PIN_SDIO_D0)) return false;
-    return SD_MMC.begin("/sd", /*mode1bit=*/true);
+    if (!SD_MMC.begin("/sd", /*mode1bit=*/true)) return false;
+    SD_MMC.mkdir("/igc");  // logs live in per-type folders (no-op if present)
+    SD_MMC.mkdir("/raw");
+    return true;
   }
 
   bool start(const GpsFix& fix) {
     if (active_) return true;
     if (!fix.valid || fix.year < 2020) return false;  // need date for header/filename
 
+    // Named by the GPS timestamp (UTC) at log start
     char path[48];
-    snprintf(path, sizeof(path), "/%04u-%02u-%02u-LFL-%02u%02u%02u.igc", fix.year,
+    snprintf(path, sizeof(path), "/igc/%04u-%02u-%02u-%02u%02u%02u.igc", fix.year,
              fix.mon, fix.day, fix.hh, fix.mm, fix.ss);
     file_ = SD_MMC.open(path, FILE_WRITE);
     if (!file_) return false;

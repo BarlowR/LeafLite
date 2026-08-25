@@ -40,8 +40,9 @@ profile from cloudbasemayhem.com/xctracer-tone-settings). Customize by putting
 identical to the defaults is in `sd/tones.txt`. Unknown keys are ignored.
 
 ## Raw sensor logging & replay
-Logging writes `*.raw.csv` next to the IGC (`/raw-NNN.csv` when no GPS date):
-baro 20Hz, body-frame IMU 100Hz, GPS 1Hz; ~21MB/h. Replay it through the exact
+Logs are named by the GPS timestamp at start: IGC in `/igc/`, raw sensor logs
+in `/raw/` (`/raw/nofix-NNN.csv` when there is no GPS date): baro 20Hz,
+body-frame IMU 100Hz, GPS 1Hz; ~21MB/h. Replay it through the exact
 firmware pipeline on the host to tune `ahrs.h` / `fusion.h` / `vario.h`:
 ```
 cd test && g++ -std=c++17 -I../src rawlog_replay.cpp -o rawlog_replay
