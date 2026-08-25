@@ -1,0 +1,34 @@
+# leaflite tone config — copy to the ROOT of the SD card as /tones.txt
+# XCTracer XCTRACER.TXT format. Loaded once at boot; delete the file to get
+# the built-in defaults back (this file ships identical to them).
+#
+# tone=<climb m/s>,<frequency Hz>,<cycle ms>,<duty %>
+#   Up to 12 lines, climb values ascending. Output is interpolated between
+#   lines and clamped past the ends. duty is the audible slice of each cycle;
+#   duty=100 is a continuous tone.
+# The vario is silent between SinkToneOnThreshold and ClimbToneOnThreshold.
+# On/Off pairs give hysteresis (Off <= On for climb, Off >= On for sink).
+# Unknown keys (setVolume, dampingFactor, ...) are ignored.
+
+ClimbToneOnThreshold=0.10
+ClimbToneOffThreshold=0.10
+SinkToneOnThreshold=-4.00
+SinkToneOffThreshold=-4.00
+
+# Paste this text into the config file
+ClimbToneOnThreshold=-2
+ClimbToneOffThreshold=-2
+SinkToneOnThreshold=-3
+SinkToneOffThreshold=-3
+tone=-10.0,200,100,100 
+tone=-3.0,280,100,100 
+tone=-2.48,273,500,100 
+tone=-2.13,200,800,5 
+tone=-1.57,304,600,50 
+tone=-0.44,428,600,52
+tone=1.16,550,552,52 
+tone=2.67,763,483,55 
+tone=4.24,985,412,58 
+tone=6.00,1234,322,62 
+tone=8.00,1517,241,66 
+tone=10.00,1800,150,70
