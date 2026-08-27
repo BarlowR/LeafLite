@@ -1,6 +1,6 @@
 # leaflite
 
-The [Leaf](https://github.com/DangerMonkeys/leaf) vario is a rad hardware platform for a paragliding variometer. This repository is a stripped down rewrite of software stack with a focused feature-set.
+The [Leaf](https://github.com/DangerMonkeys/leaf) vario is a rad hardware platform for a paragliding variometer. This repository is a stripped down rewrite of software stack with a more minimal feature-set.
 
 Features: 
 * IGC logging
